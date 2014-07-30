@@ -1,0 +1,71 @@
+doctype html
+html.no-js
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width,  initial-scale=1, maximum-scale=1')
+    
+    link(rel='icon', type='image/x-icon', href='/images/favicon.ico')
+    if present
+      title= title
+    else
+      title Present
+    meta(name='description', content='')
+    
+    link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+    link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
+
+    link(rel="stylesheet", href="/stylesheets/app.css")
+
+    if present
+      meta(property="og:url", content="https://presentapp.co/p/#{present.short_id}")
+      meta(property="og:type", content="thisispresent:present")
+      meta(property="fb:app_id", content="#{FB_ID}")
+      meta(property="og:video", content!="#{present.video.url}")
+      meta(property="og:video:width", content="400")
+      meta(property="og:video:height", content="400")
+      meta(property="og:video:type", content="video/mp4")
+      meta(property="og:video", content!="#{present.video.url}")
+      meta(property="og:video:type", content="application/x-shockwave-flash")
+      meta(property="og:video", content!="#{present.video.url}")
+      meta(property="og:video:type", content="text/html")
+      meta(property="og:title", content="#{present.title}")
+      meta(property="og:image", content="https://presentapp.co/p/covers/#{present.short_id}.png")
+      meta(property="og:image:type", content="image/png")
+      meta(name="ps:id", content="#{present._id}")
+
+      
+  body#app
+  
+    .navbar.navbar-default.navbar-fixed-top(role='navigation')
+        .navbar-header
+          a.navbar-brand(href='../')
+            img(src='/images/present-logo-white.png', alt='')
+            
+        ul.nav.navbar-nav.navbar-right
+         
+          li
+            a(href='https://itunes.apple.com/sg/app/present-send-videos-to-future/id785837186',target="_blank")
+                img(src='/images/app-store-logo-122x40.fw.png', alt='')
+        
+                   
+    .container-fluid          
+      block content
+        
+               
+               
+               
+               
+
+    footer
+        .container-fluid
+          
+          .row
+            .col-md-4.col-md-offset-4.col-md-offset-4
+              p.copyright &copy;2014 Present
+          
+  
+    
+      
+  
+    

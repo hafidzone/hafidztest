@@ -1,0 +1,231 @@
+doctype html
+html(prefix='og: http://ogp.me/ns/website#')
+  head
+    meta(charset='utf-8')
+    title= title 
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(property='og:title', content='Present')
+    meta(property='og:url', content='https://thisispresent.com')
+    meta(property='og:image', content='https://thisispresent.com/images/present-logo-square.png')
+    
+    link(href='stylesheets/bootstrap.css', rel='stylesheet', media='screen')
+    link(href='stylesheets/style.css', rel='stylesheet', media='screen')
+    link(href='stylesheets/animate.css', rel='stylesheet', media='screen')
+    link(href='stylesheets/owl.carousel.css', rel='stylesheet', media='screen')
+    link(href='stylesheets/owl.theme.css', rel='stylesheet', media='screen')
+    link(href='stylesheets/nivo-lightbox.css', rel='stylesheet', media='screen')
+    link(href='stylesheets/nivo_lightbox_themes/default/default.css', rel='stylesheet', media='screen')
+    link(href='stylesheets/colors/present.css', rel='stylesheet', media='screen')
+    link(href='stylesheets/responsive.css', rel='stylesheet', media='screen')
+    link(href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic', rel='stylesheet', type='text/css')
+    script(src='javascripts/modernizr.custom.js')
+    
+  body
+    #preloader
+      #status
+        .spinner
+          .bounce1
+          .bounce2
+          .bounce3
+    section#home
+      .container
+        .row
+          #homescreen.col-sm-12.col-md-12.col-lg-12
+            #logo
+              a(href='#home', id="#home-btn")
+                img(src='images/present-logo-white.png', alt='logo')
+            #slogan
+              h1
+                | Social Video Diary
+            //- iframe#video(src='//player.vimeo.com/video/91391908', width='WIDTH', height='HEIGHT', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
+            a#button_more.cta1(href='#') Learn More
+            a#button_download.cta2(href='https://itunes.apple.com/sg/app/present-send-videos-to-future/id785837186', target="_blank") &nbsp;
+            img#home_image.img-responsive(src='images/homescreen.png', alt='img')
+          .clearfix
+    section#about
+      .container
+        #about_intro.row
+          .col-sm-10.col-sm-offset-1.col-md-9.col-md-offset-1.col-lg-9.col-lg-offset-1
+            h2 Your Video Diary
+            p
+              | Present is a social video application born out of an artistic idea. With Present, you are just one touch away from capturing the precious moments in your life. Whether you are recording, sharing or exploring, Present is not only an elegant application which enriches your online social life, but also a piece of art that you leave as your imprint on this world.
+        .row
+          #service_1.col-sm-4.col-md-4.col-lg-4
+            img.services_icon(src="images/runningRabbit.png", alt="")
+            h3 Fast
+            p
+              | Super easy and quick to capture and relive moments
+          #service_2.col-sm-4.col-md-4.col-lg-4
+            img.services_icon(src="images/location.png", alt="")
+            h3 Location Aware
+            p
+              | Present takes advantage of what it knows about your surroundings to deliver the most relevant content to you
+          #service_3.col-sm-4.col-md-4.col-lg-4
+            img.services_icon(src="images/social.png", alt="")
+            h3 Social
+            p
+              | Present shares moments captured by the people that are important to you and at the places that are meaningful to you
+            br
+
+    section.arrows_box
+      .arrows
+        svg#about_arrow_next.arrow_down(viewbox='0 0 32 32')
+          use(xlink:href='#right-arrow')
+        svg#about_arrow_back.arrow_up(viewbox='0 0 32 32')
+          use(xlink:href='#left-arrow')
+    section#features_1
+      .container
+        .row
+          .col-sm-6.col-md-6.col-lg-6
+            img#features1a_image.img-responsive.image_back(src='images/features1b.png', alt='img')
+            img#features1b_image.img-responsive.image_front(src='images/features1a.png', alt='img')
+          #features_1_content.col-sm-6.col-md-6.col-lg-6
+            h2 Capturing
+            p
+              | Present is the most efficient app for creating your video diary complete with the following fantastic features:
+            .feature
+              div
+                h4 One-Touch Capture
+                p
+                  | Present starts recording once you launch the app! You’ll never have to fumble through countless icons, buttons and frustrating lag. One touch is all you need to capture the moment.
+            .feature
+              div
+                h4 6 Seconds, Sixth Sense
+                p
+                  | As Present records upon startup, it is also intelligent enough to stop recording within 6 seconds so you do not waste any phone memory or battery life.
+            .feature
+              div
+                h4 Simple yet Powerful Editing Suite
+                p
+                  | You can easily trim your videos and choose from 100% free premium filters to enhance your everyday moments.
+            .feature
+              div
+                h4 Smart and Fast Upload
+                p
+                  | Even on offline mode, videos shot with Present are stored locally and will auto-upload once you have an Internet connection.
+
+    section.arrows_box
+      .arrows
+        svg#features_1_arrow_next.arrow_down(viewbox='0 0 32 32')
+          use(xlink:href='#right-arrow')
+        svg#features_1_arrow_back.arrow_up(viewbox='0 0 32 32')
+          use(xlink:href='#left-arrow')
+    section#features_2
+      .container
+        .row
+          #features_2_content.col-sm-6.col-md-6.col-lg-6
+            h2 Discovery
+            p
+              | Discover Present videos based on your location. There is always a surprise just waiting to put a smile on your face.
+            .feature
+              div
+                h4 Discover People and Places
+                p
+                  | Wherever you are, Present can show you videos taken there by the people you follow, or the videos that are public.
+            .feature
+              div
+                h4 A World of Creativity
+                p
+                  | See your world anew through the eyes of the people you follow – Family, Friends, Celebrities or Featured Users.
+          .col-sm-6.col-md-6.col-lg-6
+            img#features2a_image.img-responsive.image_back(src='images/features2b.png', alt='img')
+    section.arrows_box.arrows_no_border
+      .arrows
+        svg#features_2_arrow_next.arrow_down(viewbox='0 0 32 32')
+          use(xlink:href='#right-arrow')
+        svg#features_2_arrow_back.arrow_up(viewbox='0 0 32 32')
+          use(xlink:href='#left-arrow')
+    section#features_3
+      .container
+        #features_3_intro.row
+          .col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3.col-lg-6.col-lg-offset-3
+            h2 Sharing
+            p
+              | Record the little moments everyday, share them with the people that matter to you, and look back on them anytime, anywhere. 
+        .row
+          #features_3_content_left.col-sm-4.col-md-4.ol-lg-4
+            .feature
+              h4 Share
+              p
+                | Easily post your videos to your networks on Facebook or Twitter!
+            .feature
+              h4 Interact
+              p
+                | Like, comment and share your favourite Presents. Get people talking about them!
+          #features_3_content_center.col-sm-4.col-md-4.ol-lg-4
+            img#features3_image.img-responsive(src='images/features3.png', alt='img')
+          #features_3_content_right.col-sm-4.col-md-4.ol-lg-4
+            .feature
+              h4 Post Videos to the Future
+              p
+                | Plan videos that will be shared with your friends at a specific time and place in the future. What would you do if you could travel time?
+    section#footer
+      .container
+        .row
+          h2.whiteText Your Present, Our Future.
+        .row
+          #share.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-10.col-lg-offset-1
+            #social_icons
+              ul
+                li
+                  svg#fb_icon(viewbox='0 0 32 32', onclick='location.href=\'https://facebook.com/thisispresent\'')
+                    use(xlink:href='#facebook')
+                li
+                  svg#tw_icon(viewbox='0 0 32 32', onclick='location.href=\'https://twitter.com/PresentOfficial\'')
+                    use(xlink:href='#twitter')
+                li
+                  svg#fli_icon(viewbox='0 0 32 32', onclick='location.href=\'https://instagram.com/thisispresent\'')
+                    use(xlink:href='#instagram')
+                li
+                  svg#fli_icon(viewbox='0 0 32 32', onclick='location.href=\'https://plus.google.com/106220461961485224929\'')
+                    use(xlink:href='#google-plus')
+            p Copyright © 2014 Present. Proudly Made in Singapore.
+            p Contact us
+              a(href="mailto:hello@thisispresent.com") &nbsp;hello@thisispresent.com
+    script(src='javascripts/jquery-2.0.3.min.js')
+    script(src='javascripts/jquery.easing.min.js')
+    script(src='javascripts/jquery.scrollTo.js')
+    script(src='javascripts/jquery.form.js')
+    script(src='javascripts/web.js')
+    script(src='javascripts/retina.js')
+    script(src='javascripts/waypoints.min.js')
+    script(src='javascripts/owl.carousel.min.js')
+    script(src='javascripts/nivo-lightbox.min.js')
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-48209433-1', 'thisispresent.com');
+      ga('send', 'pageview');
+    script(type='text/javascript', src='//use.typekit.net/ijw5xwj.js')
+    script.
+      try{Typekit.load();}catch(e){}
+    script.
+      var url ='images/icons.svg';
+      var c=new XMLHttpRequest(); c.open('GET', url, false); c.setRequestHeader('Content-Type', 'text/xml'); c.send();
+      document.body.insertBefore(c.responseXML.firstChild, document.body.firstChild)
+    script.
+      // Include the UserVoice JavaScript SDK (only needed once on a page)
+      UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/UKlX093Y9f9ePP5J6SODaw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+
+      //
+      // UserVoice Javascript SDK developer documentation:
+      // https://www.uservoice.com/o/javascript-sdk
+      //
+
+      // Set colors
+      UserVoice.push(['set', {
+        accent_color: '#32D0D2',
+        trigger_color: 'white',
+        trigger_background_color: '#32D0D2'
+      }]);
+
+      // Add default trigger to the bottom-right corner of the window:
+      UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
+
+      // Or, use your own custom trigger:
+      //UserVoice.push(['addTrigger', '#id', { mode: 'contact' }]);
+
+      // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+      UserVoice.push(['autoprompt', {}]);

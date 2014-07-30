@@ -1,0 +1,335 @@
+(function() {
+  Ember.Application.initializer({
+    name: 'authentication',
+    initialize: function(container, application) {
+      container.register('authenticators:present', this.App.PresentAuthenticator);
+      container.register('authenticators:facebook', this.App.FacebookAuthenticator);
+      return Ember.SimpleAuth.setup(container, application);
+    }
+  });
+
+  Ember.$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+    if (!(jqXHR.crossDomain && localStorage.getItem('ember_simple_auth:access_token') === null)) {
+      return jqXHR.setRequestHeader('X-Accesstoken', localStorage.getItem('ember_simple_auth:access_token'));
+    }
+  });
+
+  window.init = function() {
+    this.App = Ember.Application.create({
+      title: 'Present Web',
+      rootElement: '#app'
+    });
+    this.App.Router.map(function(match) {
+      this.route('login');
+      this.route('comments');
+      return this.route('like');
+    });
+    this.App.CommentsRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin);
+    this.App.LikeRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin);
+    this.App.LoginRoute = Ember.Route.extend({
+      setupController: function(controller, model) {
+        return controller.set('errorMessage', null);
+      },
+      actions: {
+        sessionAuthenticationFailed: function(message) {
+          return this.controller.set('errorMessage', message);
+        },
+        sessionAuthenticationSucceeded: function() {
+          this.controllerFor('application').send('checkLikes');
+          this.controllerFor('application').send('retrieveComments');
+          this.controllerFor('application').send('registerVideo');
+          return this.transitionTo('/');
+        }
+      }
+    });
+    this.App.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.ApplicationRouteMixin, {
+      actions: {
+        authenticateFacebookSession: function() {
+          return this.get('session').authenticate('authenticators:facebook', {});
+        },
+        invalidateFacebookSession: function() {
+          return this.get('session').invalidate('authenticators:facebook', {});
+        },
+        invalidateSession: function() {
+          return this.get('session').invalidate('authenticators:present', {});
+        }
+      }
+    });
+    this.App.ApplicationController = Ember.ObjectController.extend({
+      isLiked: false,
+      comment: "",
+      disableCommentField: false,
+      init: function() {
+        if (localStorage.getItem('ember_simple_auth:access_token') !== null) {
+          this.send('checkLikes');
+          this.send('retrieveComments');
+          return this.send('registerVideo');
+        }
+      },
+      actions: {
+        registerVideo: function() {
+          var _this;
+          _this = this;
+          if (localStorage.getItem('ember_simple_auth:access_token') !== null) {
+            return setTimeout(function() {
+              return $('#present-video').bind('ended', function() {
+                return Ember.$.ajax({
+                  url: $('meta[name="ps:id"]').attr('content') + "/viewed",
+                  type: 'POST'
+                });
+              });
+            }, 1000);
+          }
+        },
+        submitComment: function(evt) {
+          var _this;
+          _this = this;
+          if (localStorage.getItem('ember_simple_auth:access_token') !== null) {
+            Ember.$.ajax({
+              url: $('meta[name="ps:id"]').attr('content') + "/comments",
+              data: {
+                comment: _this.comment
+              },
+              type: 'POST'
+            }).then(function(response) {
+              var source, template, view;
+              source = $('#comment-template').html();
+              template = Handlebars.compile(source);
+              view = template(response);
+              $(view).removeClass('hidden');
+              $(view).appendTo($('.comments'));
+              _this.set('comment', '');
+              return _this.set('disableCommentField', false);
+            });
+            _this.set('disableCommentField', true);
+            return _this.set('comment', 'Loading...');
+          } else {
+            return this.transitionToRoute('login');
+          }
+        },
+        retrieveComments: function() {
+          var _this;
+          _this = this;
+          return Ember.$.ajax({
+            url: $('meta[name="ps:id"]').attr('content') + "/comments",
+            type: 'GET'
+          }).then(function(response) {
+            return _.each(response, function(item) {
+              var source, template, view;
+              source = $('#comment-template').html();
+              template = Handlebars.compile(source);
+              view = template(item);
+              $(view).removeClass('hidden');
+              return $(view).appendTo($('.comments'));
+            });
+          });
+        },
+        checkLikes: function() {
+          var _this;
+          _this = this;
+          return Ember.$.ajax({
+            url: $('meta[name="ps:id"]').attr('content') + "/likes",
+            type: 'GET'
+          }).then(function(response) {
+            var likes;
+            likes = _.find(response, function(item) {
+              return item === $('meta[name="ps:id"]').attr('content');
+            });
+            if (likes) {
+              return _this.set('isLiked', true);
+            }
+          });
+        },
+        like: function() {
+          if (localStorage.getItem('ember_simple_auth:access_token') !== null) {
+            this.set('isLiked', true);
+            $('#like-count').html(parseInt($('#like-count').html()) + 1);
+            return Ember.$.ajax({
+              url: $('meta[name="ps:id"]').attr('content') + "/like",
+              type: 'POST'
+            });
+          } else {
+            return this.transitionToRoute('login');
+          }
+        },
+        unlike: function() {
+          if (localStorage.getItem('ember_simple_auth:access_token') !== null) {
+            this.set('isLiked', false);
+            $('#like-count').html(parseInt($('#like-count').html()) - 1);
+            return Ember.$.ajax({
+              url: $('meta[name="ps:id"]').attr('content') + "/like",
+              type: 'DELETE'
+            });
+          }
+        }
+      }
+    });
+    this.App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMixin, {
+      authenticatorFactory: 'authenticators:present',
+      shouldShowLoginViaEmail: false,
+      actions: {
+        showLogin: function() {
+          return this.set('shouldShowLoginViaEmail', true);
+        },
+        dismissLogin: function() {
+          return this.transitionToRoute('');
+        }
+      }
+    });
+    this.App.PresentAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend(Ember.Evented, {
+      authenticate: function(credentials) {
+        var _this;
+        _this = this;
+        return new Ember.RSVP.Promise(function(resolve, reject) {
+          var data;
+          data = {
+            email: credentials.identification,
+            password: CryptoJS.SHA256(credentials.password).toString(),
+            client: {
+              id: Math.floor((Math.random() * 9999999) + 1),
+              type: "web",
+              version: "1.0.0",
+              os: navigator.userAgent
+            }
+          };
+          return Ember.$.ajax({
+            url: '/login',
+            data: JSON.stringify(data),
+            type: 'POST',
+            contentType: 'application/json'
+          }).then(function(response) {
+            return Ember.run(function() {
+              return resolve({
+                access_token: response.accesstoken,
+                account_id: response.client_id
+              });
+            });
+          }, function(xhr, status, error) {
+            return reject(xhr.responseJSON.reason);
+          });
+        });
+      },
+      invalidate: function() {
+        var _this;
+        _this = this;
+        return new Ember.RSVP.Promise(function(resolve, reject) {
+          return Ember.$.ajax({
+            url: '/logout',
+            type: 'DELETE'
+          }).always(function(response) {
+            return resolve();
+          });
+        });
+      }
+    });
+    return this.App.FacebookAuthenticator = Ember.SimpleAuth.Authenticators.Base.extend({
+      restore: function(properties) {
+        return new Ember.RSVP.Promise(function(resolve, reject) {
+          if (!Ember.isEmpty(localStorage.getItem('ember_simple_auth:access_token'))) {
+            return resolve(properties);
+          } else {
+            return reject();
+          }
+        });
+      },
+      authenticate: function() {
+        return new Ember.RSVP.Promise(function(resolve, reject) {
+          return FB.getLoginStatus(function(fbResponse) {
+            if (fbResponse.status === "connected") {
+              return Ember.run(function() {
+                return FB.api('/me', function(response) {
+                  return Ember.run(function() {
+                    var data;
+                    data = {
+                      email: response.email ? response.email : "",
+                      password: "",
+                      facebook: fbResponse.authResponse.accessToken,
+                      client: {
+                        id: Math.floor((Math.random() * 9999999) + 1),
+                        type: "web",
+                        version: "1.0.0",
+                        os: navigator.userAgent
+                      }
+                    };
+                    return Ember.$.ajax({
+                      url: '/login',
+                      data: JSON.stringify(data),
+                      type: 'POST',
+                      contentType: 'application/json'
+                    }).then(function(response) {
+                      return Ember.run(function() {
+                        return resolve({
+                          access_token: response.accesstoken,
+                          account_id: response.client_id
+                        });
+                      });
+                    }, function(xhr, status, error) {
+                      return reject(xhr.responseJSON.reason);
+                    });
+                  });
+                });
+              });
+            } else if (fbResponse.status === "not_authorized") {
+              return reject();
+            } else {
+              return FB.login(function(fbResponse) {
+                if (fbResponse.authResponse) {
+                  return Ember.run(function() {
+                    return FB.api('/me', function(response) {
+                      return Ember.run(function() {
+                        var data;
+                        data = {
+                          email: response.email ? response.email : "",
+                          password: "",
+                          facebook: fbResponse.authResponse.accessToken,
+                          client: {
+                            id: Math.floor((Math.random() * 9999999) + 1),
+                            type: "web",
+                            version: "1.0.0",
+                            os: navigator.userAgent
+                          }
+                        };
+                        return Ember.$.ajax({
+                          url: '/login',
+                          data: JSON.stringify(data),
+                          type: 'POST',
+                          contentType: 'application/json'
+                        }).then(function(response) {
+                          return Ember.run(function() {
+                            return resolve({
+                              access_token: response.accesstoken,
+                              account_id: response.client_id
+                            });
+                          });
+                        }, function(xhr, status, error) {
+                          return reject(xhr.responseJSON.reason);
+                        });
+                      });
+                    });
+                  });
+                } else {
+                  return reject();
+                }
+              }, {
+                scope: 'email,publish_actions'
+              });
+            }
+          });
+        });
+      },
+      invalidate: function() {
+        var _this;
+        _this = this;
+        return new Ember.RSVP.Promise(function(resolve, reject) {
+          return Ember.$.ajax({
+            url: '/logout',
+            type: 'DELETE'
+          }).always(function(response) {
+            return resolve();
+          });
+        });
+      }
+    });
+  };
+
+}).call(this);

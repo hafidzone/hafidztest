@@ -1,0 +1,32 @@
+{
+  "name": "present-web-server",
+  "description": "PRESENT web app server.",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "~4.2.0",
+    "static-favicon": "*",
+    "morgan": "*",
+    "cookie-parser": "*",
+    "body-parser": "*",
+    "debug": "*",
+    "jade": "*",
+    "restler": "*",
+    "konfig": "*",
+    "logfmt": "*",
+    "uglify-js": "*",
+    "moment": "*",
+    "imagemagick-composite": "*"
+  },  
+  "devDependencies": {
+    "bower": "1.2.8",
+    "grunt": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-watch": "*"
+  }
+}

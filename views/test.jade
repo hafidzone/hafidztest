@@ -1,0 +1,47 @@
+doctype html
+html.no-js
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content="")
+    meta(name="author", content="")
+    title Custom Navbar Template with Logo for Bootstrap 3
+    link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+    
+    link(rel="stylesheet", href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css")
+
+    link(rel="stylesheet", href="/stylesheets/app.css")
+  body
+    nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
+      .container
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle(type="button", data-toggle="collapse", data-target="#bs-example-navbar-collapse-1")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href="#")
+            img(src="http://placehold.it/150x50&text=Logo", alt="")
+        // Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href="#") About
+            li
+              a(href="#") Services
+            li
+              a(href="#") Contact
+        // /.navbar-collapse
+    .container
+      .row
+        .col-lg-12
+          h1 A custom navigation with a logo and faux centered menu items.
+          p
+            | The image size is 150x50 pixels. If you change the logo size, or if you change the font of the menu items, you will need to adjust the padding in
+            code logo-nav.css
+            | .
+    // /.container
+    // JavaScript
+    script(src="js/jquery-1.10.2.js")
+    script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")

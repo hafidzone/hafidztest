@@ -1,0 +1,253 @@
+html {
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    margin:0;
+}
+
+body {
+    background: #fefefe;
+    font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 100%;
+    width: 100%;
+    color: #434343;
+    font-size: 18px;
+}
+
+.btn-primary {
+    background-color: #32D0D2;
+    border: 1px solid #32D0D2;
+}
+
+.btn-facebook, .btn-facebook:hover {
+    background-color: #3b5998;
+    color: #fff;
+}
+
+#login-btn:hover {
+    background-color: #32D0D2;
+    border: 1px solid #32D0D2;
+}
+
+h4 {
+    color: #32D0D2;
+    font-weight: 700;
+}
+
+.navbar {
+    background-color: #32D0D2;
+    margin-bottom: 40px;
+    border-bottom: 0px;
+}
+
+.navbar-nav > li > a {
+    font-size: 1em;
+    text-transform: uppercase;
+    color: #fefefe !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
+
+.btn {
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+}
+
+.navbar-btn {
+    background: #29b8b9;
+
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+
+    margin-right: 20px;
+}
+
+.navbar-btn:hover {
+    background: #26aaab !important;
+}
+
+.navbar-brand {
+    height: 60px;
+    padding: 10px 15px;
+}
+
+.navbar-brand img {
+    height: 50px;
+}
+
+.single-present-wrapper {
+    margin-top: 110px;
+}
+
+p {
+    font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.video-content-wrapper video {
+    height: 100%;
+    width: 100%;
+    border-radius: 3px;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transform:translateZ(0);
+    z-index: 999;
+}
+
+.user-profile {
+    margin-bottom: 5px;
+}
+
+.user-profile img {
+    width: 40px;
+}
+
+.comment {
+    border-top: 2px solid #f5f5f5;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.comment-form {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.comment-form input[type="text"] {
+    width: 100%;
+    border: 1px solid #e5e5e5;
+}
+
+.comment-form input[type="text"]:hover {
+    border: 1px solid #32D0D2;
+}
+
+.comment img {
+    width: 20px;
+}
+
+.user-profile p, .user-profile h4, .comment p, .comment h4 {
+    display: inline;
+}
+
+.user-profile h4, .comment h4 {
+    margin-left: 5px;
+}
+
+.time-ago {
+    color: #bebebe;
+    font-style: italic;
+}
+
+.meta-info p {
+    color: #bebebe;
+}
+
+.social-buttons {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.social-buttons .btn {
+    margin-right: 10px;
+}
+
+.single-present-details-wrapper {
+    margin: 10px auto;
+}
+
+.username, .view-count p, .like-count p, .comment-count p {
+    margin-bottom: 0px;
+}
+
+.view-count, .like-count, .comment-count {
+    text-align: center;
+    color: #656565;
+}
+
+.view-count-value, .like-count-value, .comment-count-value {
+    font-weight: 700;
+    color: #32D0D2;
+    font-size: 1.8em;
+}
+
+.present-title {
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+footer {
+    text-align: center;
+}
+
+footer p {
+    color: #bebebe;
+}
+
+#blur-container, #login-container {
+    background: rgba(0,0,0,0.4);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
+}
+
+.blur {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+
+#login-container .login {
+    padding: 20px;
+    background-color: #fefefe;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.copyright {
+    margin-top: 10px;
+}
+
+.or {
+    text-align: center;
+    font-size: 1em;
+    color: #bebebe;
+    font-style: italic;
+    margin: 5px 0px 3px;
+}
+
+.mixpanel-row {
+    margin-bottom: 20px;
+}
+
+.btn-close, .btn-close:hover {
+    text-align: center;
+    font-size: 0.8em;
+    color: #bababa;
+    text-decoration: none;
+}
+
+#login-box hr {
+
+}
+
+.btn-close-wrapper {
+    text-align: center;
+}
+
+.navbar-nav {
+    float: right;
+}
+
+.navbar-header {
+    float: left;
+}

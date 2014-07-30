@@ -1,0 +1,8 @@
+node_modules/
+bower_components/
+.grunt
+*.bak
+.DS_Store
+config/
+npm-debug.log
+public/assets/*

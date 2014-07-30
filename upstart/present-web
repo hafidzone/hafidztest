@@ -1,0 +1,12 @@
+/opt/deploy/logs/present-web.log {
+	# keep the 5 latest rotations of the log 
+	rotate 5
+	# rotate once the file is bigger than 2k
+	size 2k
+	# don't error if the file isn't there
+	missingok
+	# compress rotated (old) log files
+	compress
+	# set ownership and permissions on the new log file
+	create 0640 mc deployment
+}
